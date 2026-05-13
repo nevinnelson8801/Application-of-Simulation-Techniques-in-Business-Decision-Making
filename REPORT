@@ -1,0 +1,162 @@
+ #Introduction
+
+In the highly competitive global logistics market, businesses must use advanced analytical tools to improve operations, reduce expenses and boost customer satisfaction. Thanks to simulation techniques which provides an effective way to model complex systems. Organisations can test strategies, predict outcomes and make data-driven decisions without taking on the risks associated with real-world experimentation. Because of its adaptability and ability to simulate highly dynamic systems, simulation is one of the most widely used methods in operations research (Law, 2015). Simulation is a fundamental tool for modern logistics management because it generates a digital representation of a real-world system, enabling analysts to experiment under various conditions without disrupting with actual operations (Banks et al., 2010).
+In the case of Yellowstone Inc., a logistics firm that specialises in dependable and quick package deliveries, my report looks at the application of simulation techniques. The company's operational challenges include warehouse management, route optimisation and delivery time prediction in a situation of unpredictable traffic. These issues are typical of the more general problems faced by the global logistics industry, where supply chain risk, rising fuel prices and growing customer expectations demand ever more complex analytical techniques. Yellowstone Inc. can actively handle these pressures by using simulation, which allows management to analyse the potential effects of strategic choices before allocating resources in a real-world operational setting.
+Three main tasks make up the structure of my report. The theoretical foundations of simulation are examined in Task 1, along with the important part that visualisation plays in explaining simulation results to stakeholders who are both technical and non-technical. In Task 2, delivery times under uncertain traffic conditions are predicted using Monte Carlo simulation and random number generation. A payoff table analysis is used to further investigate game theory. In Task 3, Yellowstone Inc.'s logistics procedures are represented and designed at both an operational and system design level using Petri nets and UML modelling. When taken as a whole, these activities provide a thorough understanding of simulation as a theoretical field and a useful business tool, showing how data-driven modelling can directly assist and enhance Yellowstone Inc.'s decision-making.
+
+
+
+#Task 1: Understanding Simulation and Data Types
+The process of creating a model of an actual system in order to understand its behaviour and analyse different approaches is known as simulation (Banks et al., 2010). In reality, simulation produces a summary or digital twin of a real-world system, enabling experts to test various scenarios without interfering with real-world operations.  Simulation is the process of creating a model of an actual system and testing it in order to understand its behaviour and forecast approaches.
+
+Simulation is crucial in a business because it allows organisations to evaluate the potential outcomes of choices before allocating resources. Without interfering with live operations, Yellowstone Inc. can use simulation to test delivery route strategies, model warehouse workflows and forecast how traffic variations will affect delivery times.
+
+There are a variety of simulation types that are appropriate for various problems. Systems whose conditions change at discrete points in time are modelled using Discrete-Event Simulation (DES). Continuous simulation simulates differential equation driven systems with constantly changing state parameters. Systems are shown by Agent-Based Simulation (ABS) as groups of independent agents with distinct behaviours. To model systems, Monte Carlo simulation is utilised for repeated random sampling. System Dynamics (SD) uses stocks, flows and feedback loops to simulate how complex systems behave over time.
+
+
+Figure 1: Simulation Types and Logistics Applications
+
+
+1.1 Visualisation Applications of Simulations
+A crucial step in the simulation process is visualisation, which converts complicated numerical outputs into understandable graphical representations that help in decision-making (Rossetti, 2015). Without efficient visualisation, non-technical stakeholders would not be able to access the data produced by simulation models, which would limit the value of simulation as a tool for decision support. Because graphical representations make errors easier to spot, visualisation helps with both model validation and resulting communication (Fishman, 2001).
+
+
+
+Visualisation serves Yellowstone Inc. in a number of important ways including allowing operations managers to monitor the structure of the delivery process in real time, helping with the presentation of findings to senior leadership and enabling situation comparison. It also enables our analysts to display results from various simulation runs to determine the best course of action.
+
+Tool / Library	Type	Logistics Application at Yellowstone Inc.
+AnyLogic	Multi-method simulation platform	Animated maps of vehicle movements, warehouse layouts, package flows
+Tableau / Power BI	Business intelligence dashboards	KPI visualisation: delivery time, utilisation rate, on-time delivery %
+Matplotlib / Seaborn / Plotly	Python visualisation libraries	Delivery time histograms, CDFs, sensitivity analysis charts
+ArcGIS / QGIS	GIS mapping tools	Delivery route mapping, service areas, traffic density overlays
+Table 2: Visualisation Tools and Their Applications for Yellowstone Inc.
+
+
+
+ #Task 2: Random Numbers and Monte Carlo Algorithms
+ 2.1: Random Number Generation
+In order to introduce uncertainty and variability into models, random numbers are essential to random simulation. Random numbers are used to sample values from predetermined probability distributions in simulations with probabilistic elements such as variable arrival rates, random service times or uncertain delivery durations. This makes sure that each simulation run captures the natural random behaviour of the real system (Law, 2015).
+
+
+
+Random numbers are used in Yellowstone Inc.'s logistics simulations for a number of purposes including modelling variable customer demand across delivery zones, simulating random events like vehicle breakdowns or traffic incidents and generating delivery times based on real world or assumed data. The most commonly used algorithmic approach to random number generation is the Linear Congruential Generator (LCG), defined by the recurrence relation:
+
+X(n+1) = (a × X(n) + c) mod m
+                                     where,
+                                                              X(n) = current seed,
+                                                      a = multiplier,
+                                                      c = increment,
+                                                    m = modulus
+For Yellowstone Inc.'s Monte Carlo delivery time model, NumPy's random.normal() function samples delivery times directly from a normal distribution, showing the Mersenne Twister algorithm with a period of 2¹⁹⁹³⁷ − 1, offering far superior statistical properties over the LCG.
+
+According to our analysis of the simulation output, both generators generated values that were evenly distributed between 0 and 1 with no obvious pattern, indicating statistical reliability for use downstream.
+
+
+2.2: Monte Carlo Simulation for Delivery Time Prediction
+Steps of Monte Carlo Simulation
+Monte Carlo simulation is a computational method for calculating the statistical features of a model's output through repeated random sampling. The following are the main procedures I used in my report:
+
+* Step 1: Using historical data, define the problem and input parameters. Delivery time T ~ N(μ = 30, σ = 5) minutes.
+* Step 2: Create Random Samples. Take N = 10,000 random samples from the given distribution.
+* Step 3: Determine Outputs. Gather overall statistics and note each sampled delivery time.
+* Step 4: By analysing we  develop a frequency histogram and calculate P (delivery time > 40 min).
+
+Metric	Value
+Mean Delivery Time	29.99 minutes
+Standard Deviation	5.02 minutes
+Minimum Delivery Time	10.39 minutes
+Maximum Delivery Time	49.63 minutes
+95th Percentile	38.21 minutes
+P(Delivery > 40 min) — SLA Breach Risk	2.37%
+Table 3a: Monte Carlo Simulation Results — Yellowstone Inc. (N = 10,000 deliveries)
+
+
+Model accuracy is confirmed by the simulated mean of 29.99 minutes, which closely resembles the theoretical mean of 30 minutes. The 40 minute SLA standard is expected to be exceeded by about 2.37% of deliveries, which is in line with the theoretical value of 2.28% for P(Z > 2σ) under a normal distribution. Yellowstone Inc. is able to prepare ahead of time for SLA violations thanks to our findings and this quantified risk estimate.
+
+
+Payoff Table and Nash Equilibrium
+In my report, I also use game theory to analyse a strategic routing choice between Redstone Logistics, a rival supplier, and Yellowstone Inc. A Standard Route (S) or an Express Route (E) must be selected independently by both businesses. Payoffs are expressed as daily profits in thousands of pounds.
+
+Yellowstone / Redstone	Standard (S)	Express (E)
+Standard (S)	(5, 5)	(3, 8)
+Express (E)	(8, 3)	(6, 6) ★ 
+Table 3b: Payoff Table — (Yellowstone Inc. Profit, Redstone Logistics Profit) . ★ = Nash Equilibrium
+
+When neither player can increase their payoff by unilaterally altering their strategy, there is a Nash equilibrium (Nash, 1950). Yellowstone prefers Express (E) at £8,000 over £5,000 if Redstone plays Standard (S). Yellowstone still prefers Express (E) at £6,000 over £3,000 if Redstone plays Express (E). Therefore, Express is Yellowstone’s dominant strategy regardless of what Redstone does. By symmetric reasoning, Express is also Redstone’s dominant strategy, producing a dominant strategy equilibrium at (Express, Express) = (£6,000, £6,000). Importantly, this outcome is also socially optimal: joint profits at (Express, Express) total £12,000, which exceeds the £10,000 joint profit under (Standard, Standard). Both firms are therefore individually and collectively better off choosing Express, confirming that the dominant strategy equilibrium is both stable and efficient. This result supports Yellowstone Inc.’s strategic case for investing in express delivery infrastructure, as rational self-interest and collective welfare align in favour of the Express route.
+
+
+
+#Task 3: Process Modelling and UML
+3.1: Process Modelling with Petri Nets
+Petri nets are a formal mathematical modelling language used to describe and analyse systems with resource sharing, concurrency and synchronisation (Peterson, 1977). Originally proposed by Carl Adam Petri in his 1962 doctoral dissertation, the model uses a bipartite directed graph consisting of two node types — places and transitions — connected by directed arcs to represent the dynamic behaviour of a system (Murata, 1989). Tokens (filled dots) show the current state of the system, places (circles) represent conditions or states, and transitions (rectangles) represent events or activities. A transition fires when all its input places contain the required number of tokens, consuming those tokens and depositing new ones into the output places, thereby advancing the system state.Petri nets are especially useful for Yellowstone Inc. because the package delivery process involves sequential dependencies, concurrent activities and resource limitations that are difficult to capture with simpler flowchart models. Unlike basic flowcharts, Petri nets can explicitly model parallelism — for instance, while one vehicle is being loaded, a second sorting operation can proceed independently — and can detect deadlocks, where two or more processes block each other indefinitely waiting for resources that will never become available (Reisig, 1985).
+In the context of Yellowstone Inc., the Petri net model spans five places (P1–P5) and four transitions (T1–T4), tracking a package from order receipt through sorting, vehicle loading, dispatch, and final delivery confirmation. The initial marking assigns one token to P1, representing a newly received order. As each transition fires sequentially, the token advances through the network until it reaches P5 (delivered), signalling successful completion. If transition T1 (Sort Package) fires significantly more slowly than T2 (Load Vehicle), tokens accumulate in P2, identifying the sorting stage as a bottleneck. This analytical capability makes Petri nets a powerful diagnostic tool, enabling Yellowstone Inc.'s operations team to justify targeted investments such as additional sorting infrastructure or parallel processing lanes to improve overall throughput.
+
+Place / Transition	Symbol	Description	Tokens (Initial)
+P1: Order Received	○	Package received at the warehouse	1
+T1: Sort Package	▬	Package sorted to correct delivery zone	—
+P2: Package Sorted	○	Package ready in the correct zone bin	0
+T2: Load Vehicle	▬	Package loaded onto a delivery vehicle	—
+P3: Vehicle Loaded	○	Vehicle loaded and ready for dispatch	0
+T3: Dispatch Vehicle	▬	Vehicle departs the warehouse	—
+P4: In Transit	○	Package en route to the customer	0
+T4: Complete Delivery	▬	Package successfully delivered	—
+P5: Delivered	○	Delivery confirmed; customer notified	0
+Table 4: Petri Net Elements for Yellowstone Inc. Package Delivery Process
+
+Figure 1: Petri Net Diagram — Sequential Token Flow for Yellowstone Inc. Package Delivery
+
+Sequential transition firing is modelled by the Petri net. T1 fires when P1 holds a token (order received), depositing a token in P2 (package sorted). T2 fires when P2 holds a token, enabling T3 once P3 is populated; and so on. Our analysis of the model shows that packages develop in P2, indicating a sorting capacity limit, if sorting transition T1 is much slower than loading transition T2. Targeted improvements like more sorting machines or parallel sorting lines are made possible by this insight.
+
+
+
+ 3.2: UML for System Design
+Software engineers use the Unified Modelling Language (UML), a standard general-purpose modelling language, to define, visualise, build and record the components of a software-intensive system (Booch, Rumbaugh and Jacobson, 2005). Standardised by the Object Management Group (OMG) in 1997, UML has become the industry benchmark for communicating system architecture across technical and non-technical audiences alike (Fowler, 2004). The different types of UML diagrams include use case, class, sequence, activity and state diagrams, each capturing a distinct perspective on the system under design. Use case diagrams focus on functional requirements and actor interactions, class diagrams represent the static data structure, and sequence diagrams illustrate the time-ordered exchange of messages between components.
+In the context of Yellowstone Inc., the package tracking system is modelled using a UML use case diagram, defining the interactions between the system's primary functions and its four key actors — customers, delivery drivers, warehouse staff and system administrators — alongside the external Notification Service. By capturing these interactions visually before any development begins, UML enables early requirements validation, reducing the risk of costly changes later in the software development lifecycle (Rumbaugh, Jacobson and Booch, 2004).
+The diagram incorporates two important UML stereotyped relationships. The «include» relationship between Track Package and Send Notification indicates that every tracking event unconditionally triggers a notification, making it mandatory behaviour embedded within the base use case. The «extend» relationship between Update Delivery Status and Notify Delay represents conditional behaviour — the notification only fires when the driver explicitly marks a delivery as delayed, extending the base use case only under that specific circumstance. This distinction is significant for system design, as it directly informs how the notification engine at Yellowstone Inc. should be architected — separating mandatory from optional logic reduces coupling and makes the system easier to maintain and scale as delivery volumes grow.
+
+
+
+
+Actor	Role	Key Use Cases
+Customer	External	Track Package, Receive Notifications, Submit Delivery Feedback
+Delivery Driver	External	Update Delivery Status, View Route Map, Confirm Delivery
+Warehouse Staff	Internal	Scan Package, Update Package Status, Assign to Vehicle
+System Administrator	Internal	Manage User Accounts, Generate Reports, Configure Notifications
+Notification Service	External System	Send Email/SMS Notification («include» in Track Package)
+Table 5: Actors and Use Cases — Yellowstone Inc. Package Tracking System
+
+
+
+Figure 2: UML Use Case Diagram — Yellowstone Inc. Package Tracking System
+
+Every package tracking event starts a customer notification, which is modelled as required behaviour, according to the "include" relationship between Track Package and Send Notification. Update Delivery Status and Notify Customer of Delay have a "extend" relationship, which means that the notification is conditional and only happens when the driver marks a delivery as delayed. According to our research, Yellowstone Inc. can build the package tracking system around actual user needs by using UML, which lowers the possibility of expensive requirement changes during development.
+
+
+
+ #Conclusion
+The thorough application of simulation techniques to Yellowstone Inc.'s operational challenges has been demonstrated in my report. A variety of simulation techniques, tools and modelling approaches have been explored and applied to actual business decision-making situations across three related tasks.
+
+
+Task 1 defined simulation as a powerful modelling technique that allows organisations to test plans and predict results. In a logistics context, Discrete-event, continuous, agent-based, Monte Carlo and system dynamics were analysed and the important part that visualisation plays in enabling decision-makers to access simulation outputs.
+
+Task 2 established the theoretical foundations of random number generation. Our Monte Carlo simulation applied to Yellowstone Inc.'s delivery times, assuming a Normal distribution with μ = 30 minutes and σ = 5 minutes, showed that roughly 2.37% of deliveries are expected to exceed the 40-minute SLA limit, giving management a measurable risk estimate. In the routing strategy game between Redstone Logistics and Yellowstone Inc., game theory analysis further revealed that (Express, Express) is the Nash Equilibrium.
+
+
+In Task 3, the sequential and concurrent phases of Yellowstone Inc.'s package delivery process were modelled using Petri nets, which produced a formal, analysable representation that could spot obstacles and deadlocks.
+
+When combined, these methods give Yellowstone Inc. a strong analytical toolkit for enhancing operational effectiveness, controlling uncertainty and creating superior information systems. Future research could use agent-based modelling to simulate fleet paths under dynamic, real-time conditions, apply SimPy-based discrete-event simulation to model the entire warehouse to door delivery process and expand the Monte Carlo model to include irregular distributions derived from real-world traffic data.
+
+
+
+6. References
+Banks, J., Carson, J.S., Nelson, B.L. and Nicol, D.M. (2010) Discrete-Event System Simulation. 5th edn. Upper Saddle River, NJ: Prentice Hall.
+Rumbaugh, J., Jacobson, I. and Booch, G. (2004) The Unified Modeling Language Reference Manual. 2nd edn. Boston, MA: Addison-Wesley.
+Fishman, G.S. (2001) Discrete-Event Simulation: Modeling, Programming, and Analysis. New York: Springer.
+Hunter, J.D. (2007) 'Matplotlib: A 2D Graphics Environment', Computing in Science & Engineering, 9(3), pp. 90-95.
+Law, A.M. (2015) Simulation Modeling and Analysis. 5th edn. New York: McGraw-Hill.
+Nash, J. (1950) 'Equilibrium points in n-person games', Proceedings of the National Academy of Sciences, 36(1), pp. 48-49.
+Peterson, J.L. (1977) 'Petri nets', ACM Computing Surveys, 9(3), pp. 223-252.
+Rossetti, M.D. (2015) Simulation Modeling and Arena. 2nd edn. Hoboken, NJ: Wiley.
+Murata, T. (1989) 'Petri nets: Properties, analysis and applications', Proceedings of the IEEE, 77(4), pp. 541–580
+Reisig, W. (1985) Petri Nets: An Introduction. Berlin: Springer
+Fowler, M. (2004) UML Distilled: A Brief Guide to the Standard Object Modelling Language. 3rd edn. Boston, MA: Addison-Wesley
