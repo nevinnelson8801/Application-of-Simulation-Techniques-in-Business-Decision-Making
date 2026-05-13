@@ -103,7 +103,7 @@ T4: Complete Delivery	▬	Package successfully delivered	—
 P5: Delivered	○	Delivery confirmed; customer notified	0
 Table 4: Petri Net Elements for Yellowstone Inc. Package Delivery Process
 
-Figure 1: Petri Net Diagram — Sequential Token Flow for Yellowstone Inc. Package Delivery
+Figure 2: Petri Net Diagram — Sequential Token Flow for Yellowstone Inc. Package Delivery
 
 Sequential transition firing is modelled by the Petri net. T1 fires when P1 holds a token (order received), depositing a token in P2 (package sorted). T2 fires when P2 holds a token, enabling T3 once P3 is populated; and so on. Our analysis of the model shows that packages develop in P2, indicating a sorting capacity limit, if sorting transition T1 is much slower than loading transition T2. Targeted improvements like more sorting machines or parallel sorting lines are made possible by this insight.
 
@@ -127,7 +127,7 @@ Table 5: Actors and Use Cases — Yellowstone Inc. Package Tracking System
 
 
 
-Figure 2: UML Use Case Diagram — Yellowstone Inc. Package Tracking System
+Figure 3: UML Use Case Diagram — Yellowstone Inc. Package Tracking System
 
 Every package tracking event starts a customer notification, which is modelled as required behaviour, according to the "include" relationship between Track Package and Send Notification. Update Delivery Status and Notify Customer of Delay have a "extend" relationship, which means that the notification is conditional and only happens when the driver marks a delivery as delayed. According to our research, Yellowstone Inc. can build the package tracking system around actual user needs by using UML, which lowers the possibility of expensive requirement changes during development.
 
